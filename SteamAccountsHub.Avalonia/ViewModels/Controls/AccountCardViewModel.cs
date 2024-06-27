@@ -22,10 +22,14 @@ public class AccountCardViewModel : PageControllerViewModelBase<AccountDataSelec
     }
 
     //Костыль, да-да
-    public static double CardWidth { get; } = 300;
+    public static double CardWidth { get; } = 400;
 
     private readonly Account _data;
     private readonly ObservableCollection<AccountCardViewModel> _accounts;
+
+    public AccountCardViewModel()
+        : this(new(), [])
+    { }
 
     public AccountCardViewModel(Account data, ObservableCollection<AccountCardViewModel> accounts)
         : base(ResourceExtension.FindResource<SolidColorBrush>("PanelBackgroundColor")!,

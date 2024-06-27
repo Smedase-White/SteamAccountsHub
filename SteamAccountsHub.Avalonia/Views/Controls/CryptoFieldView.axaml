@@ -21,9 +21,13 @@
       Text="{Binding Data}"/>
     <Button
       Grid.Column="4"
+      Background="{StaticResource ResetColor}"
+      ToolTip.Tip="Copy"
+      ToolTip.ShowDelay="200"
       Command="{Binding Copy}">
       <ic:SymbolIcon
-        Symbol="Copy"/>
+        Symbol="Copy"
+        IsFilled="True"/>
     </Button>
   </Grid>
   

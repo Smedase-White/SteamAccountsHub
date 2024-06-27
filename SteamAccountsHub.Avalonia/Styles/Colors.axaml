@@ -18,7 +18,6 @@
   
   <SolidColorBrush x:Key="CheckColor" Color="#2196F3" />
 
-
   <SolidColorBrush x:Key="SuccessColor" Color="#7ED47B"/>
   <SolidColorBrush x:Key="InvalidColor" Color="#EC7789"/>
 

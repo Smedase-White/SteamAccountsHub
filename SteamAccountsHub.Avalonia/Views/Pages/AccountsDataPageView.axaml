@@ -22,6 +22,8 @@
         <Button
           CornerRadius="18"
           Background="{StaticResource AddColor}"
+          ToolTip.Tip="Create new account card"
+          ToolTip.ShowDelay="200"
           Command="{Binding CreateAccountCommand}">
           <ic:SymbolIcon 
             Symbol="Add"
@@ -119,6 +121,8 @@
         <Button
           CornerRadius="18"
           Background="{StaticResource ResetColor}"
+          ToolTip.Tip="Reset search field"
+          ToolTip.ShowDelay="200"
           Command="{Binding ResetSearchCommand}">
           <ic:SymbolIcon
             Symbol="ArrowClockwise"
