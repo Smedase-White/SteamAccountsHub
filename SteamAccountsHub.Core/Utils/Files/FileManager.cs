@@ -45,8 +45,7 @@ public static class FileManager
     {
         try
         {
-            using FileStream stream = File.Exists(filePath) == false ?
-                File.Create(filePath) : File.OpenWrite(filePath);
+            using FileStream stream = File.Create(filePath);
             JsonSerializer.Serialize(stream, obj, GetOptionsByFileType(filePath));
             stream.Close();
         }
