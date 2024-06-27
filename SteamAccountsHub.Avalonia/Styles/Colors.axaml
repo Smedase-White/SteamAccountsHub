@@ -1,0 +1,26 @@
+﻿<ResourceDictionary 
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <SolidColorBrush x:Key="PanelBackgroundColor" Color="#161F29"/>
+  <SolidColorBrush x:Key="PageBackgroundColor" Color="#0F151A"/>
+  <SolidColorBrush x:Key="TabBackgroundColor" Color="#0E131A"/>
+
+  <SolidColorBrush x:Key="SecondColor" Color="#7160E8"/>
+
+  <SolidColorBrush x:Key="ForegroundColor" Color="White"/>
+  <SolidColorBrush x:Key="ButtonForegroundColor" Color="Black"/>
+
+  <SolidColorBrush x:Key="AddColor" Color="#7ED47B"/>
+  <SolidColorBrush x:Key="ResetColor" Color="#2196F3"/>
+  <SolidColorBrush x:Key="MoveColor" Color="#7ED47B"/>
+  <SolidColorBrush x:Key="DeleteColor" Color="#EC7789"/>
+  
+  <SolidColorBrush x:Key="CheckColor" Color="#2196F3" />
+
+
+  <SolidColorBrush x:Key="SuccessColor" Color="#7ED47B"/>
+  <SolidColorBrush x:Key="InvalidColor" Color="#EC7789"/>
+
+  <SolidColorBrush x:Key="ScrollColor" Color="#4D4D4D"/>
+</ResourceDictionary>

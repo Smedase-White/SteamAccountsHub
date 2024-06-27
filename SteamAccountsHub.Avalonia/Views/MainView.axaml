@@ -1,0 +1,88 @@
+<UserControl 
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:ic="using:FluentIcons.Avalonia"
+  xmlns:c="clr-namespace:SteamAccountsHub.Avalonia.Views.Controls"
+  xmlns:vm="clr-namespace:SteamAccountsHub.Avalonia.ViewModels"
+  mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+  x:Class="SteamAccountsHub.Avalonia.Views.MainView"
+  x:DataType="vm:MainViewModel"
+  Background="{StaticResource TabBackgroundColor}">
+  
+  <Design.DataContext>
+    <vm:MainViewModel/>
+  </Design.DataContext>
+
+  <Grid>
+    <SplitView
+      IsEnabled="{Binding IsEnabled}"
+      IsPaneOpen="{Binding IsMenuOpen}"
+      OpenPaneLength="200"
+      CompactPaneLength="50"
+      DisplayMode="CompactInline">
+      <SplitView.Effect>
+        <BlurEffect Radius="{Binding Blur}"/>
+      </SplitView.Effect>
+      <SplitView.Pane>
+        <StackPanel
+          Background="{StaticResource TabBackgroundColor}">
+          <Button
+            CornerRadius="8"
+            Margin="5"
+            HorizontalAlignment="Stretch"
+            Command="{Binding ChangeMenuState}">
+            <ic:SymbolIcon
+              FontSize="24"
+              Foreground="{StaticResource ForegroundColor}"
+              Symbol="RowTriple"
+              IsFilled="True"/>
+          </Button>
+          <ItemsControl
+            ItemsSource="{Binding Selectors}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate DataType="{x:Type vm:MainSelectorViewModel}">
+                <Button
+                  Margin="5"
+                  CornerRadius="8"
+                  Padding="0,5"
+                  HorizontalAlignment="Stretch"
+                  Command="{Binding ChangePage}"
+                  Background="{Binding Background}">
+                  <StackPanel
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <ic:SymbolIcon
+                      FontSize="20"
+                      Foreground="{StaticResource ForegroundColor}"
+                      Width="36"
+                      Symbol="{Binding Symbol}"/>
+                    <TextBlock
+                      FontSize="18"
+                      Foreground="{StaticResource ForegroundColor}"
+                      Text="{Binding Label}"/>
+                  </StackPanel>
+                </Button>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </SplitView.Pane>
+      <SplitView.Content>
+        <Border
+          CornerRadius="18 0 0 0"
+          Background="{StaticResource PageBackgroundColor}">
+          <TransitioningContentControl Content="{Binding CurrentPage}"/>
+        </Border>
+      </SplitView.Content>
+    </SplitView>
+    <Grid
+      IsVisible="{Binding KeyInputVisible}">
+      <c:KeyInputView
+        VerticalAlignment="Center" 
+        DataContext="{Binding KeyInput}"/>
+    </Grid>
+  </Grid>
+  
+</UserControl>

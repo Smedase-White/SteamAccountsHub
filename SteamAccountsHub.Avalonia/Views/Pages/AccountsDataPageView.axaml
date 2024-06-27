@@ -1,0 +1,148 @@
+<UserControl 
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:ic="using:FluentIcons.Avalonia"
+  xmlns:c="clr-namespace:SteamAccountsHub.Avalonia.Views.Controls"
+  xmlns:vmc="clr-namespace:SteamAccountsHub.Avalonia.ViewModels.Controls"
+  mc:Ignorable="d" d:DesignHeight="450"
+  x:Class="SteamAccountsHub.Avalonia.Views.Pages.AccountsDataPageView">
+
+  <Grid RowDefinitions="Auto, *" >
+    <Border 
+      Grid.Row="0"
+      Margin="20, 6"
+      CornerRadius="24"
+      Background="{StaticResource PanelBackgroundColor}">
+      <StackPanel
+        Margin="6, 4"
+        Spacing="10"
+        Orientation="Horizontal">
+        <Button
+          CornerRadius="18"
+          Background="{StaticResource AddColor}"
+          Command="{Binding CreateAccountCommand}">
+          <ic:SymbolIcon 
+            Symbol="Add"
+            IsFilled="True"/>
+        </Button>
+        <TextBox 
+          Height="24"
+          Width="250"
+          Text="{Binding SearchText}">
+          <TextBox.Template>
+            <ControlTemplate>
+              <DataValidationErrors>
+                <Panel>
+                  <Border
+                    Name="PART_BorderElement"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="24"
+                    MinWidth="{TemplateBinding MinWidth}"
+                    MinHeight="{TemplateBinding MinHeight}">
+                  </Border>
+                  <Border
+                    Margin="{TemplateBinding BorderThickness}">
+                    <Grid ColumnDefinitions="Auto,*,Auto" >
+                      <ContentPresenter 
+                        Grid.Column="0"
+                        Grid.ColumnSpan="1"
+                        Content="{TemplateBinding InnerLeftContent}"/>
+                      <DockPanel 
+                        x:Name="PART_InnerDockPanel"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="1"
+                        Cursor="IBeam"
+                        Margin="{TemplateBinding Padding}">
+                        <TextBlock 
+                          Name="PART_FloatingWatermark"
+                          Foreground="{DynamicResource SystemAccentColor}"
+                          FontSize="{TemplateBinding FontSize}"
+                          IsVisible="False"
+                          Text="{TemplateBinding Watermark}"
+                          DockPanel.Dock="Top" />
+                        <Panel VerticalAlignment="Center">
+                          <TextBlock 
+                            Name="PART_Watermark"
+                            Opacity="0.5"
+                            Text="Search account"
+                            TextAlignment="{TemplateBinding TextAlignment}"
+                            TextWrapping="{TemplateBinding TextWrapping}"
+                            IsVisible="{TemplateBinding Text, Converter={x:Static StringConverters.IsNullOrEmpty}}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                          <TextPresenter 
+                            Name="PART_TextPresenter"
+                            Text="{TemplateBinding Text, Mode=TwoWay}"
+                            CaretIndex="{TemplateBinding CaretIndex}"
+                            SelectionStart="{TemplateBinding SelectionStart}"
+                            SelectionEnd="{TemplateBinding SelectionEnd}"
+                            TextAlignment="{TemplateBinding TextAlignment}"
+                            TextWrapping="{TemplateBinding TextWrapping}"
+                            LineHeight="{TemplateBinding LineHeight}"
+                            LetterSpacing="{TemplateBinding LetterSpacing}"
+                            PasswordChar="{TemplateBinding PasswordChar}"
+                            RevealPassword="{TemplateBinding RevealPassword}"
+                            SelectionBrush="{TemplateBinding SelectionBrush}"
+                            SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                            CaretBrush="{TemplateBinding CaretBrush}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Panel>
+                        <Button
+                          Background="Transparent"
+                          CornerRadius="8"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Top"
+                          Padding="0"
+                          Width="30"
+                          Command="{Binding SearchAccountCommand}">
+                        <ic:SymbolIcon
+                          Symbol="Search"
+                          IsFilled="True"/>
+                        </Button>
+                      </DockPanel>
+                      <ContentPresenter 
+                        Grid.Column="2"
+                        Grid.ColumnSpan="1"
+                        Content="{TemplateBinding InnerRightContent}"/>
+                    </Grid>
+                  </Border>
+                </Panel>
+              </DataValidationErrors>
+            </ControlTemplate>
+          </TextBox.Template>
+        </TextBox>
+        <Button
+          CornerRadius="18"
+          Background="{StaticResource ResetColor}"
+          Command="{Binding ResetSearchCommand}">
+          <ic:SymbolIcon
+            Symbol="ArrowClockwise"
+            IsFilled="True"/>
+        </Button>
+      </StackPanel>
+    </Border>
+    <ScrollViewer
+      Grid.Row="1">
+      <ItemsControl Grid.Column="1" ItemsSource="{Binding Accounts}" VerticalAlignment="Top">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <UniformGrid
+              Columns="{Binding ColumnsCount}"
+              Rows="{Binding RowsCount}"/>
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate DataType="{x:Type vmc:AccountCardViewModel}">
+            <c:AccountCardView Margin="10"/>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+  </Grid>
+  
+</UserControl>

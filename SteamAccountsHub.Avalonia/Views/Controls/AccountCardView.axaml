@@ -1,0 +1,145 @@
+<UserControl 
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:ic="using:FluentIcons.Avalonia"
+  xmlns:vm="clr-namespace:SteamAccountsHub.Avalonia.ViewModels.Controls"
+  mc:Ignorable="d"
+  Width="{Binding CardWidth}"
+  Height="250"
+  x:Class="SteamAccountsHub.Avalonia.Views.Controls.AccountCardView">
+
+  <Design.DataContext>
+    <vm:AccountCardViewModel/>
+  </Design.DataContext>
+
+  <Border
+    CornerRadius="8"
+    Background="{StaticResource PanelBackgroundColor}">
+    <Grid RowDefinitions="Auto, *">
+      <Border
+        CornerRadius="8,0"
+        Grid.Row="0"
+        Background="{StaticResource TabBackgroundColor}">
+        <Grid 
+          Grid.Row="0"
+          RowDefinitions="Auto, Auto">
+          <Grid
+            Grid.Row="0"
+            ColumnDefinitions="*, Auto">
+            <TextBox 
+              Grid.Column="0"
+              Margin="2"
+              CornerRadius="8"
+              BorderBrush="{StaticResource SecondColor}"
+              MinHeight="12"
+              Padding="4, 0"
+              FontSize="12"
+              Text="{Binding Name}"/>
+            <StackPanel
+              Grid.Column="1"
+              Margin="2"
+              Orientation="Horizontal"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Top"
+              Spacing="5">
+              <Button
+                Height="18"
+                Padding="5,0"
+                CornerRadius="8"
+                Background="{StaticResource MoveColor}"
+                Foreground="Black"
+                Command="{Binding MoveToStartCommand}">
+                <ic:SymbolIcon
+                  FontSize="16"
+                  Symbol="ChevronDoubleLeft"
+                  IsFilled="True"/>
+              </Button>
+              <Button
+                Height="18"
+                Padding="5,0"
+                CornerRadius="8"
+                Background="{StaticResource MoveColor}"
+                Foreground="Black"
+                Command="{Binding MoveBackCommand}">
+                <ic:SymbolIcon
+                  FontSize="16"
+                  Symbol="ChevronLeft"
+                  IsFilled="True"/>
+              </Button>
+              <Button
+                Height="18"
+                Padding="5,0"
+                CornerRadius="8"
+                Background="{StaticResource MoveColor}"
+                Foreground="Black"
+                Command="{Binding MoveForwardCommand}">
+                <ic:SymbolIcon
+                  FontSize="16"
+                  Symbol="ChevronRight"
+                  IsFilled="True"/>
+              </Button>
+              <Button
+                Height="18"
+                Padding="5,0"
+                CornerRadius="8"
+                Background="{StaticResource MoveColor}"
+                Foreground="Black"
+                Command="{Binding MoveToEndCommand}">
+                <ic:SymbolIcon
+                  FontSize="16"
+                  Symbol="ChevronDoubleRight"
+                  IsFilled="True"/>
+              </Button>
+              <Button
+                Height="18"
+                Padding="5,0"
+                CornerRadius="8"
+                Background="{StaticResource DeleteColor}"
+                Foreground="Black"
+                Command="{Binding DeleteCommand}">
+                <ic:SymbolIcon
+                  FontSize="16"
+                  Symbol="Delete"
+                  IsFilled="True"/>
+              </Button>
+            </StackPanel>
+          </Grid>
+          <ScrollViewer
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Auto">
+            <ItemsControl
+              VerticalAlignment="Top"
+              ItemsSource="{Binding Selectors}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel
+                    Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type vm:AccountDataSelectorViewModel}">
+                  <Button
+                    Margin="5"
+                    CornerRadius="8"
+                    Padding="5"
+                    Command="{Binding ChangePage}"
+                    Background="{Binding Background}"
+                    FontSize="14"
+                    Foreground="{StaticResource ForegroundColor}"
+                    Content="{Binding Label}"/>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </ScrollViewer>
+        </Grid>
+      </Border>
+      <TransitioningContentControl
+        Grid.Row="1"
+        Margin="5"
+        Content="{Binding CurrentPage}"/>
+    </Grid>
+  </Border>
+  
+</UserControl>
