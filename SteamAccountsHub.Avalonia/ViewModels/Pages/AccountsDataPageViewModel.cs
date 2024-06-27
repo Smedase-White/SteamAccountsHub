@@ -62,6 +62,8 @@ public class AccountsDataPageViewModel : PageViewModelBase
         SaveFile? save = FileManager.Load<SaveFile>(SaveFile.Filename);
         if (save?.KeyVerify.Value != SaveFile.VerifyWord)
             return;
+        FileManager.Save(save, SaveFile.BackupFilename);
+
         foreach (Account account in save.Accounts ?? [])
             Accounts.Add(InitAccountCard(account));
         UpdateRowsCount();
@@ -69,11 +71,7 @@ public class AccountsDataPageViewModel : PageViewModelBase
 
     public void SaveAccounts()
     {
-        SaveFile? save = FileManager.Load<SaveFile>(SaveFile.Filename);
-        if (save != null)
-            FileManager.Save(save, SaveFile.BackupFilename);
-
-        save = new()
+        SaveFile save = new()
         {
             KeyVerify = new(SaveFile.VerifyWord),
             Accounts = Accounts.Select(account => account.Data).ToList(),
