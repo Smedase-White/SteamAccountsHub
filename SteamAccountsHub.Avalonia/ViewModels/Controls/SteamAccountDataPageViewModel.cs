@@ -17,12 +17,15 @@ public class SteamAccountDataPageViewModel : PageViewModelBase, IDataUpdatable
     public SteamAccountDataPageViewModel(Steam data)
     {
         _data = data;
+
         CryptoFields =
         [
-            new CryptoFieldViewModel("Login", (value) => { _data.Login = value; DataUpdate?.Invoke(); }, _data.Login.Decrypted),
-            new CryptoFieldViewModel("Password", (value) => { _data.Password = value; DataUpdate?.Invoke(); }, _data.Password.Decrypted),
-            new CryptoFieldViewModel("API Key", (value) => { _data.ApiKey = value; DataUpdate?.Invoke(); }, _data.ApiKey.Decrypted),
+            new CryptoFieldViewModel("Login", _data.Login),
+            new CryptoFieldViewModel("Password", _data.Password),
+            new CryptoFieldViewModel("API Key", _data.ApiKey),
         ];
+        foreach (CryptoFieldViewModel field in CryptoFields)
+            field.Update = () => DataUpdate?.Invoke();
     }
 
     public ObservableCollection<CryptoFieldViewModel> CryptoFields { get; set; }

@@ -17,11 +17,14 @@ public class BaseAccountDataPageViewModel : PageViewModelBase, IDataUpdatable
     public BaseAccountDataPageViewModel(Base data)
     {
         _data = data;
+
         CryptoFields =
         [
-            new CryptoFieldViewModel("Email", (value) => { _data.Email = value; DataUpdate?.Invoke(); }, _data.Email.Decrypted),
-            new CryptoFieldViewModel("Password", (value) => { _data.Password = value; DataUpdate?.Invoke(); }, _data.Password.Decrypted),
+            new CryptoFieldViewModel("Email", _data.Email),
+            new CryptoFieldViewModel("Password", _data.Password),
         ];
+        foreach (CryptoFieldViewModel field in CryptoFields)
+            field.Update = () => DataUpdate?.Invoke();
     }
 
     public ObservableCollection<CryptoFieldViewModel> CryptoFields { get; set; }

@@ -47,7 +47,7 @@ public class KeyInputViewModel : ViewModelBase
         }
 
         SaveFile? save = FileManager.Load<SaveFile>(SaveFile.Filename);
-        if (save?.KeyVerify.Decrypted == SaveFile.VerifyWord)
+        if (save?.KeyVerify.Value == SaveFile.VerifyWord)
             Success();
         else
             Invalid();

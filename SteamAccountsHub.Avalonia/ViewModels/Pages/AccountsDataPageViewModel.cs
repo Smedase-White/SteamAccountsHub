@@ -14,7 +14,6 @@ using ReactiveUI.Fody.Helpers;
 using SteamAccountsHub.Avalonia.ViewModels.Bases;
 using SteamAccountsHub.Avalonia.ViewModels.Controls;
 using SteamAccountsHub.Core.Modules;
-using SteamAccountsHub.Core.Utils.Cryptography;
 using SteamAccountsHub.Core.Utils.Files;
 
 namespace SteamAccountsHub.Avalonia.ViewModels.Pages;
@@ -61,7 +60,7 @@ public class AccountsDataPageViewModel : PageViewModelBase
     public void LoadAccounts()
     {
         SaveFile? save = FileManager.Load<SaveFile>(SaveFile.Filename);
-        if (save?.KeyVerify.Decrypted != SaveFile.VerifyWord)
+        if (save?.KeyVerify.Value != SaveFile.VerifyWord)
             return;
         foreach (Account account in save.Accounts ?? [])
             Accounts.Add(InitAccountCard(account));
@@ -76,7 +75,7 @@ public class AccountsDataPageViewModel : PageViewModelBase
 
         save = new()
         {
-            KeyVerify = CryptoString.CreateByDecrypted(SaveFile.VerifyWord),
+            KeyVerify = new(SaveFile.VerifyWord),
             Accounts = Accounts.Select(account => account.Data).ToList(),
         };
         FileManager.Save(save, SaveFile.Filename);

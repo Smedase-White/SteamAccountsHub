@@ -12,9 +12,9 @@ public class CryptoStringTests
         string text = "test string";
         // Act
         CryptoManager.Key = key;
-        CryptoString encrypted = CryptoString.CreateByDecrypted(text);
+        CryptoString encrypted = new(text);
         CryptoString decrypted = CryptoString.CreateByEncrypted(encrypted.Encrypted);
         // Assert
-        Assert.Equal(text, decrypted.Decrypted);
+        Assert.Equal(text, decrypted.Value);
     }
 }

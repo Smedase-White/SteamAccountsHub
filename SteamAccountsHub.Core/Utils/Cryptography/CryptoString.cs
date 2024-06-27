@@ -1,25 +1,19 @@
 ﻿namespace SteamAccountsHub.Core.Utils.Cryptography;
 
-public readonly struct CryptoString
+public class CryptoString
 {
-    public readonly string Decrypted;
-
-    public readonly string Encrypted;
-
-    private CryptoString(string decrypted, string encrypted)
+    public CryptoString(string value = "")
     {
-        Decrypted = decrypted;
-        Encrypted = encrypted;
+        Value = value;
     }
 
-    public static CryptoString CreateByDecrypted(string decryptedValue)
-    {
-        return new(decryptedValue, CryptoManager.EncryptString(decryptedValue));
-    }
+    public string Value { get; set; }
+
+    public string Encrypted { get => CryptoManager.EncryptString(Value); }
+
+    public readonly static CryptoString Default = new("");
 
     public static CryptoString CreateByEncrypted(string encryptedValue)
-    {
-        return new(CryptoManager.DecryptString(encryptedValue), encryptedValue);
-    }
+        => new(CryptoManager.DecryptString(encryptedValue));
 }
 

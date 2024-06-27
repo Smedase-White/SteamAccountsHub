@@ -9,11 +9,11 @@ public class DecryptedStringJsonConverter : JsonConverter<CryptoString>
 {
     public override CryptoString Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        return CryptoString.CreateByDecrypted(reader.GetString() ?? "");
+        return new(reader.GetString() ?? "");
     }
 
     public override void Write(Utf8JsonWriter writer, CryptoString value, JsonSerializerOptions options)
     {
-        writer.WriteStringValue(value.Decrypted);
+        writer.WriteStringValue(value.Value);
     }
 }
