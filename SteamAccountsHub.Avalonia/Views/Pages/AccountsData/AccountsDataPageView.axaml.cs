@@ -3,9 +3,9 @@ using System;
 using Avalonia;
 using Avalonia.Controls;
 
-using SteamAccountsHub.Avalonia.ViewModels.Pages;
+using SteamAccountsHub.Avalonia.ViewModels.Pages.AccountsData;
 
-namespace SteamAccountsHub.Avalonia.Views.Pages
+namespace SteamAccountsHub.Avalonia.Views.Pages.AccountsData
 {
     public partial class AccountsDataPageView : UserControl
     {
@@ -18,7 +18,7 @@ namespace SteamAccountsHub.Avalonia.Views.Pages
 
         private void Resize(Rect rect)
         {
-            (DataContext as AccountsDataPageViewModel)?.ControlResize(rect);
+            (DataContext as AccountsDataPageViewModel)?.AccountsCardList.ControlResize(rect);
         }
     }
 }

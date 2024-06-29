@@ -1,37 +1,29 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.ComponentModel;
 using System.Reactive;
 
 using Avalonia.Media;
 
 using ReactiveUI;
 
-using SteamAccountsHub.Avalonia.Utils;
 using SteamAccountsHub.Avalonia.ViewModels.Bases;
 using SteamAccountsHub.Core.Modules;
 
-namespace SteamAccountsHub.Avalonia.ViewModels.Controls;
+namespace SteamAccountsHub.Avalonia.ViewModels.Pages.AccountsData.AccountCard;
 
-public class AccountCardViewModel : PageControllerViewModelBase<AccountDataSelectorViewModel>, IDataUpdatable
+public class CardViewModel : PageControllerViewModelBase<AccountDataSelectorViewModel>
 {
-    public enum MoveDirection
-    {
-        Start,
-        Back,
-        Forward,
-        End
-    }
-
     //Костыль, да-да
     public static double CardWidth { get; } = 400;
 
     private readonly Account _data;
-    private readonly ObservableCollection<AccountCardViewModel> _accounts;
+    private readonly AccountsCardListViewModel _cardsList;
+    //private readonly ObservableCollection<CardViewModel> _accounts;
 
-    public AccountCardViewModel()
-        : this(new(), [])
+    public CardViewModel()
+        : this(new(), new(new()))
     { }
 
-    public AccountCardViewModel(Account data, ObservableCollection<AccountCardViewModel> accounts)
+    public CardViewModel(Account data, AccountsCardListViewModel cardsList)
         : base(ResourceExtension.FindResource<SolidColorBrush>("PanelBackgroundColor")!,
             ResourceExtension.FindResource<SolidColorBrush>("SecondColor")!,
             [
@@ -40,7 +32,7 @@ public class AccountCardViewModel : PageControllerViewModelBase<AccountDataSelec
             ])
     {
         _data = data;
-        _accounts = accounts;
+        _cardsList = cardsList;
 
         MoveToStartCommand = ReactiveCommand.Create(() => Move(MoveDirection.Start));
         MoveBackCommand = ReactiveCommand.Create(() => Move(MoveDirection.Back));
@@ -50,7 +42,12 @@ public class AccountCardViewModel : PageControllerViewModelBase<AccountDataSelec
         DeleteCommand = ReactiveCommand.Create(Delete);
 
         foreach (AccountDataSelectorViewModel selector in Selectors)
-            (selector.Page as IDataUpdatable)!.DataUpdate += Update;
+            selector.PropertyChanged += DataPropertyChanged;
+    }
+
+    private void DataPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        this.RaisePropertyChanged(nameof(Data));
     }
 
     public string Name
@@ -71,35 +68,24 @@ public class AccountCardViewModel : PageControllerViewModelBase<AccountDataSelec
 
     public Account Data => _data;
 
-    public event IDataUpdatable.DataUpdateHandler? DataUpdate;
-
     private void Move(MoveDirection direction)
     {
-        int oldIndex = _accounts.IndexOf(this);
-        int newIndex = direction switch
+        int newIndex;
+        bool isRelative;
+        (newIndex, isRelative) = direction switch
         {
-            MoveDirection.Start => 0,
-            MoveDirection.Back => oldIndex - 1,
-            MoveDirection.Forward => oldIndex + 1,
-            MoveDirection.End => _accounts.Count - 1,
+            MoveDirection.Start => (0, false),
+            MoveDirection.Back => (-1, true),
+            MoveDirection.Forward => (1, true),
+            MoveDirection.End => (-1, false),
         };
 
-        if (newIndex >= 0 && newIndex < _accounts.Count)
-            _accounts.Move(oldIndex, newIndex);
-
-        Update();
+        _cardsList.MoveAccountCard(this, newIndex, isRelative);
     }
 
     private void Delete()
     {
-        _accounts.Remove(this);
-
-        Update();
-    }
-
-    public void Update()
-    {
-        DataUpdate?.Invoke();
+        _cardsList.RemoveAccountCard(this);
     }
 }
 
@@ -112,4 +98,11 @@ public class AccountDataSelectorViewModel : PageSelectorViewModelBase
     }
 
     public string Label { get; }
+}
+public enum MoveDirection
+{
+    Start,
+    Back,
+    Forward,
+    End
 }

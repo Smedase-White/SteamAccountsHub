@@ -1,12 +1,14 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 
-using SteamAccountsHub.Avalonia.Utils;
+using ReactiveUI;
+
 using SteamAccountsHub.Avalonia.ViewModels.Bases;
 using SteamAccountsHub.Core.Modules;
 
-namespace SteamAccountsHub.Avalonia.ViewModels.Controls;
+namespace SteamAccountsHub.Avalonia.ViewModels.Pages.AccountsData.AccountCard;
 
-public class SteamAccountDataPageViewModel : PageViewModelBase, IDataUpdatable
+public class SteamAccountDataPageViewModel : PageViewModelBase
 {
     private readonly Steam _data;
 
@@ -25,10 +27,13 @@ public class SteamAccountDataPageViewModel : PageViewModelBase, IDataUpdatable
             new CryptoFieldViewModel("API Key", _data.ApiKey),
         ];
         foreach (CryptoFieldViewModel field in CryptoFields)
-            field.Update = () => DataUpdate?.Invoke();
+            field.PropertyChanged += DataPropertyChanged;
     }
 
     public ObservableCollection<CryptoFieldViewModel> CryptoFields { get; set; }
 
-    public event IDataUpdatable.DataUpdateHandler? DataUpdate;
+    private void DataPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        this.RaisePropertyChanged((sender as CryptoFieldViewModel)!.Label);
+    }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reactive;
+﻿using System.Reactive;
 
 using Avalonia;
 using Avalonia.Controls;
@@ -11,15 +10,17 @@ using ReactiveUI;
 using SteamAccountsHub.Avalonia.ViewModels.Bases;
 using SteamAccountsHub.Core.Utils.Cryptography;
 
-namespace SteamAccountsHub.Avalonia.ViewModels.Controls;
+namespace SteamAccountsHub.Avalonia.ViewModels.Pages.AccountsData.AccountCard;
 
 public class CryptoFieldViewModel : ViewModelBase
 {
     private readonly CryptoString _cryptoString;
+    private string _oldData;
 
     public CryptoFieldViewModel(string label, CryptoString cryptoString)
     {
         _cryptoString = cryptoString;
+        _oldData = _cryptoString.Value;
 
         Label = label;
         Copy = ReactiveCommand.Create(CopyToClipboard);
@@ -33,14 +34,19 @@ public class CryptoFieldViewModel : ViewModelBase
         set
         {
             _cryptoString.Value = value;
-            this.RaisePropertyChanged(nameof(Data));
-            Update?.Invoke();
         }
     }
 
     public ReactiveCommand<Unit, Unit>? Copy { get; set; }
 
-    public Action? Update { get; set; }
+    public void DataPropertyChanged()
+    {
+        if (Data == _oldData)
+            return;
+
+        _oldData = Data;
+        this.RaisePropertyChanged(nameof(Data));
+    }
 
     private void CopyToClipboard()
     {

@@ -3,10 +3,10 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-  xmlns:c="clr-namespace:SteamAccountsHub.Avalonia.Views.Controls"
-  xmlns:vmc="clr-namespace:SteamAccountsHub.Avalonia.ViewModels.Controls"
+  xmlns:v="clr-namespace:SteamAccountsHub.Avalonia.Views.Pages.AccountsData.AccountCard"
+  xmlns:vm="clr-namespace:SteamAccountsHub.Avalonia.ViewModels.Pages.AccountsData.AccountCard"
   mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-  x:Class="SteamAccountsHub.Avalonia.Views.Controls.BaseAccountDataPageView">
+  x:Class="SteamAccountsHub.Avalonia.Views.Pages.AccountsData.AccountCard.BaseAccountDataPageView">
   
   <StackPanel
     Spacing="15"
@@ -14,8 +14,8 @@
     <ItemsControl
       ItemsSource="{Binding CryptoFields}">
       <ItemsControl.ItemTemplate>
-        <DataTemplate DataType="{x:Type vmc:CryptoFieldViewModel}">
-          <c:CryptoFieldView Margin="5"/>
+        <DataTemplate DataType="{x:Type vm:CryptoFieldViewModel}">
+          <v:CryptoFieldView Margin="5"/>
         </DataTemplate>
       </ItemsControl.ItemTemplate>
     </ItemsControl>

@@ -2,9 +2,9 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 
-using SteamAccountsHub.Avalonia.ViewModels.Controls;
+using SteamAccountsHub.Avalonia.ViewModels.Pages.AccountsData.AccountCard;
 
-namespace SteamAccountsHub.Avalonia.Views.Controls
+namespace SteamAccountsHub.Avalonia.Views.Pages.AccountsData.AccountCard
 {
     public partial class CryptoFieldView : UserControl
     {
@@ -16,12 +16,12 @@ namespace SteamAccountsHub.Avalonia.Views.Controls
         private void OnKeyDown(object? sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
-                (DataContext as CryptoFieldViewModel)?.Update();
+                (DataContext as CryptoFieldViewModel)?.DataPropertyChanged();
         }
 
         private void OnLostFocus(object? sender, RoutedEventArgs e)
         {
-            (DataContext as CryptoFieldViewModel)?.Update();
+            (DataContext as CryptoFieldViewModel)?.DataPropertyChanged();
         }
     }
 }

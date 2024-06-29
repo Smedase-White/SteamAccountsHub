@@ -1,0 +1,31 @@
+<UserControl 
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:cv="clr-namespace:SteamAccountsHub.Avalonia.Views.Pages.AccountsData.AccountCard"
+  xmlns:cvm="clr-namespace:SteamAccountsHub.Avalonia.ViewModels.Pages.AccountsData.AccountCard"
+  mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+  x:Class="SteamAccountsHub.Avalonia.Views.Pages.AccountsData.AccountsCardListView">
+
+  <ScrollViewer>
+    <ItemsControl 
+      Grid.Column="1"
+      ItemsSource="{Binding VisibleAccounts}"
+      VerticalAlignment="Top">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <UniformGrid
+            Columns="{Binding ColumnsCount}"
+            Rows="{Binding RowsCount}"/>
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate DataType="{x:Type cvm:CardViewModel}">
+          <cv:CardView Margin="10"/>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+  </ScrollViewer>
+
+</UserControl>

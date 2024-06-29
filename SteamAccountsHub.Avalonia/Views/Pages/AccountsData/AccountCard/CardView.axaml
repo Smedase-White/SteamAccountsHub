@@ -4,14 +4,14 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:ic="using:FluentIcons.Avalonia"
-  xmlns:vm="clr-namespace:SteamAccountsHub.Avalonia.ViewModels.Controls"
+  xmlns:vm="clr-namespace:SteamAccountsHub.Avalonia.ViewModels.Pages.AccountsData.AccountCard"
   mc:Ignorable="d"
   Width="{Binding CardWidth}"
   Height="250"
-  x:Class="SteamAccountsHub.Avalonia.Views.Controls.AccountCardView">
+  x:Class="SteamAccountsHub.Avalonia.Views.Pages.AccountsData.AccountCard.CardView">
 
   <Design.DataContext>
-    <vm:AccountCardViewModel/>
+    <vm:CardViewModel/>
   </Design.DataContext>
 
   <Border
@@ -22,13 +22,13 @@
         CornerRadius="8,0"
         Grid.Row="0"
         Background="{StaticResource TabBackgroundColor}">
-        <Grid 
+        <Grid
           Grid.Row="0"
           RowDefinitions="Auto, Auto">
           <Grid
             Grid.Row="0"
             ColumnDefinitions="*, Auto">
-            <TextBox 
+            <TextBox
               Grid.Column="0"
               Margin="2"
               CornerRadius="8"
@@ -141,5 +141,6 @@
         Content="{Binding CurrentPage}"/>
     </Grid>
   </Border>
+  
   
 </UserControl>

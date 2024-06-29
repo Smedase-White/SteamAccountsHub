@@ -1,0 +1,35 @@
+<UserControl 
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:ic="using:FluentIcons.Avalonia"
+  xmlns:v="clr-namespace:SteamAccountsHub.Avalonia.Views.Pages.AccountsData"
+  xmlns:vm="clr-namespace:SteamAccountsHub.Avalonia.ViewModels.Pages.AccountsData"
+  
+  mc:Ignorable="d" d:DesignHeight="450"
+  x:Class="SteamAccountsHub.Avalonia.Views.Pages.AccountsData.AccountsDataPageView">
+
+  <Grid>
+    <Grid 
+      IsEnabled="{Binding IsEnabled}"
+      RowDefinitions="Auto, *">
+      <Grid.Effect>
+        <BlurEffect Radius="{Binding Blur}"/>
+      </Grid.Effect>
+      <v:ToolbarView
+        Grid.Row="0"
+        Margin="20, 6"
+        DataContext="{Binding Toolbar}"/>
+      <v:AccountsCardListView
+        Grid.Row="1"
+        DataContext="{Binding AccountsCardList}"/>
+    </Grid>
+    <Grid IsVisible="{Binding KeyInputVisible}">
+      <v:KeyInputView
+        VerticalAlignment="Center"
+        DataContext="{Binding KeyInput}"/>
+    </Grid>
+  </Grid>
+  
+</UserControl>

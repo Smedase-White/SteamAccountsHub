@@ -5,8 +5,9 @@ using FluentIcons.Common;
 using ReactiveUI.Fody.Helpers;
 
 using SteamAccountsHub.Avalonia.ViewModels.Bases;
-using SteamAccountsHub.Avalonia.ViewModels.Controls;
-using SteamAccountsHub.Avalonia.ViewModels.Pages;
+using SteamAccountsHub.Avalonia.ViewModels.Pages.AccountsData;
+using SteamAccountsHub.Avalonia.ViewModels.Pages.Info;
+using SteamAccountsHub.Avalonia.ViewModels.Pages.Settings;
 
 namespace SteamAccountsHub.Avalonia.ViewModels;
 
@@ -16,36 +17,15 @@ public class MainViewModel : PageControllerViewModelBase<MainSelectorViewModel>
         : base(ResourceExtension.FindResource<SolidColorBrush>("PanelBackgroundColor")!,
             ResourceExtension.FindResource<SolidColorBrush>("SecondColor")!)
     {
-        KeyInput = new(this);
-    }
-
-    [Reactive]
-    public bool IsEnabled { get; set; } = false;
-
-    [Reactive]
-    public int Blur { get; set; } = 5;
-
-    [Reactive]
-    public KeyInputViewModel KeyInput { get; set; }
-
-    [Reactive]
-    public bool KeyInputVisible { get; set; } = true;
-
-    [Reactive]
-    public bool IsMenuOpen { get; set; } = false;
-
-    public void Load()
-    {
         InitSelectors([
             new(new AccountsDataPageViewModel(), Symbol.Accessibility, "Accounts"),
             new(new SettingsPageViewModel(), Symbol.Settings, "Settings"),
             new(new InfoPageViewModel(), Symbol.Info, "Information"),
-
         ]);
-        IsEnabled = true;
-        KeyInputVisible = false;
-        Blur = 0;
     }
+
+    [Reactive]
+    public bool IsMenuOpen { get; set; } = false;
 
     public void ChangeMenuState()
     {

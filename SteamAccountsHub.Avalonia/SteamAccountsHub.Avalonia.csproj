@@ -24,10 +24,5 @@
   <ItemGroup>
     <ProjectReference Include="..\SteamAccountsHub.Core\SteamAccountsHub.Core.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Views\Controls\KeyInputView.axaml.cs">
-      <DependentUpon>KeyInputView.axaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
+  
 </Project>

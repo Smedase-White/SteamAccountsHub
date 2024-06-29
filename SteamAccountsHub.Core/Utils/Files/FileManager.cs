@@ -16,12 +16,18 @@ public static class FileManager
         Converters = { new EncryptedStringJsonConverter() },
     };
 
-    private static JsonSerializerOptions GetOptionsByFileType(string filePath)
+    private static readonly Dictionary<FileExtension, JsonSerializerOptions> Options = new()
+    {
+        { FileExtension.Json, JsonOptions },
+        { FileExtension.Sah, SahOptions },
+    };
+
+    public static FileExtension GetFileExtension(string filePath)
         => Path.GetExtension(filePath).ToLower() switch
         {
-            ".json" => JsonOptions,
-            ".sah" => SahOptions,
-            _ => throw new NotImplementedException("Not implemented file type."),
+            ".json" => FileExtension.Json,
+            ".sah" => FileExtension.Sah,
+            _ => throw new NotImplementedException("Not implemented file extension."),
         };
 
     public static T? Load<T>(string filePath) where T : class
@@ -31,7 +37,7 @@ public static class FileManager
         try
         {
             using FileStream stream = File.OpenRead(filePath);
-            T? result = JsonSerializer.Deserialize<T>(stream, GetOptionsByFileType(filePath));
+            T? result = JsonSerializer.Deserialize<T>(stream, Options[GetFileExtension(filePath)]);
             stream.Close();
             return result;
         }
@@ -46,9 +52,27 @@ public static class FileManager
         try
         {
             using FileStream stream = File.Create(filePath);
-            JsonSerializer.Serialize(stream, obj, GetOptionsByFileType(filePath));
+            JsonSerializer.Serialize(stream, obj, Options[GetFileExtension(filePath)]);
             stream.Close();
         }
         catch { }
     }
+
+    public static void Copy(string sourceFileName, string targetFileName)
+    {
+        if (File.Exists(sourceFileName) == false)
+            return;
+
+        try
+        {
+            File.Copy(sourceFileName, targetFileName);
+        }
+        catch { }
+    }
+}
+
+public enum FileExtension
+{
+    Json,
+    Sah
 }

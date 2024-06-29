@@ -12,8 +12,9 @@
   <SolidColorBrush x:Key="ButtonForegroundColor" Color="Black"/>
 
   <SolidColorBrush x:Key="AddColor" Color="#7ED47B"/>
+  <SolidColorBrush x:Key="SaveColor" Color="#2196F3"/>
   <SolidColorBrush x:Key="ResetColor" Color="#2196F3"/>
-  <SolidColorBrush x:Key="MoveColor" Color="#7ED47B"/>
+  <SolidColorBrush x:Key="MoveColor" Color="#DD8F54"/>
   <SolidColorBrush x:Key="DeleteColor" Color="#EC7789"/>
   
   <SolidColorBrush x:Key="CheckColor" Color="#2196F3" />

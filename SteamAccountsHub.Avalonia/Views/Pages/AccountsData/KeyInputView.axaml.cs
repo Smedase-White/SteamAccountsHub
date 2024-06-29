@@ -1,9 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
-using SteamAccountsHub.Avalonia.ViewModels.Controls;
+using SteamAccountsHub.Avalonia.ViewModels.Pages.AccountsData;
 
-namespace SteamAccountsHub.Avalonia.Views.Controls
+namespace SteamAccountsHub.Avalonia.Views.Pages.AccountsData
 {
     public partial class KeyInputView : UserControl
     {

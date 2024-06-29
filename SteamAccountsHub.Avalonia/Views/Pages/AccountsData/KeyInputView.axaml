@@ -4,32 +4,55 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:ic="using:FluentIcons.Avalonia"
-  x:Class="SteamAccountsHub.Avalonia.Views.Controls.KeyInputView">
+  x:Class="SteamAccountsHub.Avalonia.Views.Pages.AccountsData.KeyInputView">
   
   <Border
     CornerRadius="16"
-    Width="300"
+    Width="400"
     Background="{StaticResource PanelBackgroundColor}">
     <Grid 
       Margin="8"
       ColumnDefinitions="*, 10, 50"
-      RowDefinitions="Auto">
-      <TextBox 
+      RowDefinitions="Auto, 10, Auto">
+      <Label
+        Grid.Column="0"
         Grid.Row="0"
+        Padding="5,0"
+        Content="{Binding Label}"/>
+      <Button
+        Grid.Column="2"
+        Grid.Row="0"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Top"
+        Padding="0"
+        CornerRadius="8"
+        Width="30"
+        Background="{StaticResource DeleteColor}"
+        Foreground="Black"
+        Command="{Binding CloseCommand}">
+        <ic:SymbolIcon
+          FontSize="16"
+          Symbol="Dismiss"
+          IsFilled="True"/>
+      </Button>
+      <TextBox 
+        Grid.Row="2"
         Grid.Column="0"
         CornerRadius="8"
         BorderBrush="{Binding TextBorderColor}"
         Watermark="Enter key"
+        Classes="revealPasswordButton"
+        PasswordChar="•"
         Text="{Binding Key}"/>
       <Button
-        Grid.Row="0"
+        Grid.Row="2"
         Grid.Column="2"
         CornerRadius="8"
         Background="{StaticResource CheckColor}"
         Command="{Binding CheckCommand}"
         LostFocus="OnGotFocus">
         <ic:SymbolIcon
-          Symbol="LockClosedKey"
+          Symbol="Key"
           IsFilled="True"/>
       </Button>
     </Grid>
