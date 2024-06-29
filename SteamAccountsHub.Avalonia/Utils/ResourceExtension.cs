@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 
-namespace SteamAccountsHub.Avalonia;
+namespace SteamAccountsHub.Avalonia.Utils;
 
 //Класс, созданный для нормальной работы с ужасным кодом авалонии
 public static class ResourceExtension

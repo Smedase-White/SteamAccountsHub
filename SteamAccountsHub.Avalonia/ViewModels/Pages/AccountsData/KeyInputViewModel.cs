@@ -6,6 +6,7 @@ using Avalonia.Media;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
+using SteamAccountsHub.Avalonia.Utils;
 using SteamAccountsHub.Avalonia.ViewModels.Bases;
 using SteamAccountsHub.Core.Modules;
 using SteamAccountsHub.Core.Utils.Cryptography;
@@ -34,8 +35,6 @@ public class KeyInputViewModel : ViewModelBase
             KeyInputMode.Set => $"Set secret key to {Path.GetFileName(_filePath)}",
             KeyInputMode.Check => $"Enter secret key to {Path.GetFileName(_filePath)}"
         };
-
-        CloseCommand = ReactiveCommand.Create(Close);
     }
 
     public string Label { get; }

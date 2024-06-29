@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Reactive.Linq;
 
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -24,10 +22,9 @@ public class AccountsDataPageViewModel : PageViewModelBase
         KeyInputMode mode = File.Exists(SaveFile.Filename) ? KeyInputMode.Check : KeyInputMode.Set;
         KeyInput = new(this, SaveFile.Filename, mode)
         {
-            CloseCommand = ReactiveCommand.Create(() => { CryptoManager.Key = KeyInput!.Key; KeyInput.Close(); }),
             CheckCommand = mode switch
             {
-                KeyInputMode.Set => ReactiveCommand.Create(() => { KeyInput!.CloseCommand?.Execute().Subscribe(); }),
+                KeyInputMode.Set => ReactiveCommand.Create(() => { CryptoManager.Key = KeyInput!.Key; KeyInput.Close(); }),
                 KeyInputMode.Check => ReactiveCommand.Create(KeyInputInitCheck),
             }
         };
@@ -56,7 +53,8 @@ public class AccountsDataPageViewModel : PageViewModelBase
     {
         if (KeyInput!.IsValidKey())
         {
-            KeyInput.CloseCommand?.Execute().Subscribe();
+            CryptoManager.Key = KeyInput!.Key;
+            KeyInput.Close();
             CreateBackup();
             LoadAccounts();
         }
